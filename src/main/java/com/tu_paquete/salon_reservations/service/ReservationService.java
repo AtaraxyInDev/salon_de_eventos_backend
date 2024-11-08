@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// src/main/java/com/tu_paquete/salon_reservations/service/ReservationService.java
 @Service
 public class ReservationService {
     @Autowired
@@ -23,7 +24,6 @@ public class ReservationService {
     }
 
     public Reservation saveReservation(Reservation reservation) {
-        // Asegurarse de que el salón existe y está asociado correctamente
         if (reservation.getSalon() != null && reservation.getSalon().getId() != null) {
             Optional<Salon> salon = salonRepository.findById(reservation.getSalon().getId());
             if (salon.isPresent()) {
@@ -37,5 +37,23 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-    // Otros métodos...
+    public List<Reservation> getReservationsBySalon(String salonId) {
+        return reservationRepository.findBySalonId(salonId);
+    }
+
+    public void cancelReservation(String reservationId) {
+        reservationRepository.deleteById(reservationId);
+    }
+
+    public Reservation confirmReservation(String reservationId, boolean confirmed) {
+        Optional<Reservation> reservationOpt = reservationRepository.findById(reservationId);
+        if (reservationOpt.isPresent()) {
+            Reservation reservation = reservationOpt.get();
+            reservation.setConfirmed(confirmed);
+            return reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reserva no encontrada");
+        }
+    }
 }
+
