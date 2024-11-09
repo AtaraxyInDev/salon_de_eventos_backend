@@ -20,4 +20,5 @@ public class SalonController {
     @PostMapping public Salon createSalon(@RequestBody Salon salon) { 
         return salonService.saveSalon(salon); }
     }
+
 // Otros métodos... }

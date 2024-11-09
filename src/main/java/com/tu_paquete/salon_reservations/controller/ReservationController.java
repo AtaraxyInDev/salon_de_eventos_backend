@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 // src/main/java/com/tu_paquete/salon_reservations/controller/ReservationController.java
-// src/main/java/com/tu_paquete/salon_reservations/controller/ReservationController.java
 @RestController
 @RequestMapping("/api/reservations")
 public class ReservationController {
